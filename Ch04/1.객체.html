@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>객체</title>
+    <script src="./Account.js"></script>
+  </head>
+  <body>
+    <h3>객체</h3>
+    <script>
+      //사용자 정의객체
+      const sonata = {
+        name: "소나타",
+        color: "흰색",
+        speed: 0,
+        speedUp: function (speed) {
+          this.speed += speed;
+        },
+        speedDown: function (speed) {
+          this.speed -= speed;
+        },
+        show: function () {
+          document.write("차량명 : " + this.name + "<br>");
+          document.write("차량색 : " + this.color + "<br>");
+          document.write("현재속도 : " + this.speed + "<br>");
+        },
+      };
+      sonata.speedUp(80);
+      sonata.speedDown(20);
+      sonata.show();
+
+      //kb, 10000 입금, 2000 출금, 조회
+      const kb = new Account("국민은행", "101-12-1110", "김유신", 1000);
+      kb.deposit(10000);
+      kb.withdraw(2000);
+      kb.show();
+    </script>
+  </body>
+</html>
