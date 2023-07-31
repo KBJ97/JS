@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery애니메이션</title>
+    <!-- 
+        날짜 : 2023/07/31 
+        이름 : 김병준
+        내용 : jQuery 애니메이션 실습
+     -->
+     <style>
+        section{
+            position: relative;
+            width: 100%;
+            height: 220px;
+        }
+        .box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid blue;
+            box-sizing: border-box;
+            background-color: orange    ;
+        }
+        .box1{left: 0; top:10px ;}
+        .box2{left: 210px; top:10px ;}
+        .box3{left: 420px; top:10px ;}
+
+        .container{
+            position: relative;
+            width: 800px;
+            height: 400px;
+            border: 1px solid black;
+        }
+
+        .container > div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            background-color: green;
+        }
+        
+        .container > div:nth-child(1){left: 0; top: 0;}
+        .container > div:nth-child(2){left: 0; top: 100px;}
+        .container > div:nth-child(3){left: 0; top: 200px;}
+        .container > div:nth-child(4){left: 50%; top: 50%;    
+            animation: rotation 30s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;}
+            @keyframes rotation {
+            from{transform : rotate(0deg)}
+            to{transform: rotate(360deg);}
+        }
+
+     </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+     <script>
+        $(document).ready(function(){
+            const buttons = $('button');
+            
+            buttons.eq(0).click(function(){
+                $('.box1').animate({
+                    'width' : '200px',
+                    'height' : '200px',
+                    'opactiry' : '1'
+                })
+            });
+            buttons.eq(1).click(function(){
+                $('.box1').animate({
+                    'width' : '0',
+                    'height' : '0',
+                    'opactiry' : '0'
+                },500)
+            });
+            buttons.eq(2).click(function(){
+                $('.box2').animate({'opacity':'1'},1000);
+            });
+            buttons.eq(3).click(function(){
+                $('.box2').animate({'opacity':'0'},1000);
+            });
+            buttons.eq(4).click(function(){
+                $('.box3').animate({'height':'0'},1000);
+            });
+            buttons.eq(5).click(function(){
+                $('.box3').animate({'height':'200px'},1000);
+            });
+
+            $('.container > div:eq(0)').click(function(){
+                $(this).animate({'left': '700px'}, 1000)
+                .animate({'left':'0'}, 1000);
+            });
+
+            $('.container > div:eq(1)').click(function(){
+                $(this)
+                    .animate({'left':'700px'}, 1000)
+                    .animate({'left':'0'}, 1000);
+            });
+
+            $('.container > div:eq(2)').click(function(){
+                $(this)
+                    .animate({'top':'300px'},250)
+                    .animate({'left':'700px'},500)
+                    .animate({'top':'0'},250)
+                    .animate({'left':'0'},500)
+                    .animate({'top':'200px'},250)
+            });
+        });
+        
+
+        $(function(){
+
+            $('a').click(function(e){
+                e.preventDefault();
+
+                let idx = $(this).index();
+
+                if(idx == 0){
+                    //show
+                    $('.box1').show(1000);
+                }else if(idx == 1){
+                    //hide
+                    $('.box1').hide(1000);
+                }else if(idx == 2){
+                    //toggle
+                    $('.box1').toggle(500);
+                }else if(idx == 3){
+                    //fadein
+                    $('.box2').fadeIn(500);
+                }else if(idx == 4){
+                    //fadeout
+                    $('.box2').fadeOut(500);
+                }else if(idx == 5){
+                    //fade toggle
+                    $('.box2').fadeToggle(500);
+                }else if(idx == 6){
+                    //slideup
+                    $('.box3').slideUp(500);
+                }else if(idx == 7){
+                    //slidedown
+                    $('.box3').slideDown(500);
+                }else if(idx == 8){
+                    //slide toggle
+                    $('.box3').slideToggle(500);
+                }
+            });
+
+        });
+
+     </script>
+</head>
+<body>
+    <h3>jQuery애니메이션</h3>
+
+    <h4>기본 애니메이션</h4>
+    <div>
+        <button>show</button>
+        <button>hide</button>
+        <button>fadeIn</button>
+        <button>fadeOut</button>
+        <button>slideUp</button>
+        <button>slideDown</button>
+    </div>
+    <section>
+        <article class="box box1"></article>
+        <article class="box box2"></article>
+        <article class="box box3"></article>
+    </section>
+
+    <h4>이동 애니메이션</h4>
+    <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+
+    <h4>애니메이션 단축 함수</h4>
+    <div>
+        <a href="#">show</a>
+        <a href="#">hide</a>
+        <a href="#">toggle</a>
+        <a href="#">fadeIn</a>
+        <a href="#">fadeOut</a>
+        <a href="#">fadetoggle</a>
+        <a href="#">slideUp</a>
+        <a href="#">slideDown</a>
+        <a href="#">slidetoggle</a>
+    </div>
+    <section class="content">
+        <article class="box box1"></article>
+        <article class="box box2"></article>
+        <article class="box box3"></article>
+    </section>
+
+    <h4>슬라이드 배너 애니메이션</h4>
+    <style>
+        ul{
+            position: relative;
+            width: 280px;
+            height: 390px;
+            padding: 0;
+            list-style: none;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+        ul > li {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid blue;
+            box-sizing: border-box;
+        }
+        ul > li:nth-child(1) {left: 0; top:0;}
+        ul > li:nth-child(2) {left: 100%; top:0;}
+        ul > li:nth-child(3) {left: 200%; top:0;}
+    </style>
+    <script>
+        $(function(){
+        const slides = $('ul > li');
+        let i = 0;
+        setInterval(function(){
+            slides.eq(i).animate({'left':'-100%'}, 1000);
+            i++;
+            if(i == 3){
+                i = 0;
+            }
+            slides.eq(i).css('left', '100%').animate({'left':'0'}, 1000);
+        }, 1000);
+});
+
+    </script>
+    <ul>
+        <li><img src="./images/1.jpg" alt="1"></li>
+        <li><img src="./images/2.jpg" alt="2"></li>
+        <li><img src="./images/3.jpg" alt="3"></li>
+    </ul>
+</body>
+</html>
