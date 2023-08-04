@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.부산동물병원</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=86c4c40f5a0bbcd706e953e25fdd8538"></script>
+    <script>
+
+        window.onload = function(){
+        
+
+            var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(35.13712802020838, 129.09889065347357), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+        
+            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+            const url = 'https://apis.data.go.kr/6260000/BusanAnimalHospService/getTblAnimalHospital?serviceKey=wl9Cr6zUvAKW%2Fxco57kiD%2BU%2BKQmnm4um2%2Fs9VxLIAzwlIunHj4X4dDFsL8EzsBd0r1efrg7oCy6SqVB4589MzQ%3D%3D&pageNo=1&numOfRows=300&resultType=json';
+            
+            fetch(url)
+                .then((res)=>res.json())
+                .then((data) => {
+                    console.log(data.getTblAnimalHospital.body.items.item);
+                    const items = data.getTblAnimalHospital.body.items.item;                    
+
+                    for(let item of items){
+                        console.log(item.animal_hospital);
+
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: new kakao.maps.LatLng(item.lat, item.lon),
+                            title : item.animal_hospital
+                        });
+
+                        marker.setMap(map);
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <h3>3.부산 동물병원 실습</h3>       
+    <div id="map1" style="width:1200px;height:800px;"></div>
+</body>
+</html>
